@@ -60,6 +60,10 @@ for(const s of stages){
  s.tasks.forEach((task,i)=>{const label=make('label'), box=make('input'), id='check'+s.n+'-'+i;box.type='checkbox';box.checked=Boolean(data[id]);box.onchange=()=>{data[id]=box.checked;save();update();stats();filter();};label.append(box,make('span',task));checks.append(label);});
  body.append(checks);card.append(body);$('stages').append(card);update();
 }
+const empty=make('p','조건에 맞는 단계가 없습니다.','panel');
+empty.id='empty';$('stages').append(empty);
+$('query').oninput=filter;
+$('pending').onclick=e=>{const b=e.currentTarget;b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');filter();};
 function itemList(rows){
  const list=make('dl',null,'item-list');
  for(const [name,options] of rows){list.append(make('dt',name),make('dd',options));}
